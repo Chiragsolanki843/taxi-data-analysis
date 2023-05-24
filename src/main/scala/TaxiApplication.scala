@@ -121,6 +121,9 @@ object TaxiApplication extends App {
   //PaymentTypeEvolvingWithTime(taxiDF, taxiZonesDF)
 
   // 8
-  //RideSharingOpportunity(taxiDF, taxiZonesDF)
+  RideSharingOpportunity(taxiDF, taxiZonesDF)
+
+  // 9
+  TaxiEconomicImpact(taxiDF, bigTaxiDF, taxiZonesDF)
 
 }

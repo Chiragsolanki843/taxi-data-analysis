@@ -9,6 +9,11 @@ object RideSharingOpportunity {
 
   def apply(taxiDF: DataFrame, taxiZonesDF: DataFrame)(implicit spark: SparkSession) = {
 
+    val passengerCountDF = taxiDF.where(col("passenger_count") < 3).select(count("*"))
+
+    passengerCountDF.show()
+    taxiDF.select(count("*")).show()
+
     // unix_timestamp start from --> 1970-01-01 00:00:00 UTC
     // All the trips that can be grouped by location ID and 5 mins bucket.
     val groupAttemptsDF = taxiDF
@@ -79,7 +84,7 @@ object RideSharingOpportunity {
       .withColumn("rejectedGroupedRidesEconomicImpact", col("groupedRides") * (1 - percentAcceptGrouping) * extraCost)
       .withColumn("totalImpact", col("acceptedGroupedRidesEconomicImpact") + col("rejectedGroupedRidesEconomicImpact"))
 
-    groupingEstimateEconomicImpactDF.show(100)
+    //groupingEstimateEconomicImpactDF.show(100)
 
     /*
       +------------+----------+------------------+--------------------+---------+--------------------+------------------+----------------------------------+----------------------------------+------------------+
@@ -190,7 +195,7 @@ object RideSharingOpportunity {
 
     val totalAmountDF = groupingEstimateEconomicImpactDF.select(sum(col("total_amount")).as("total_amount"))
 
-    totalAmountDF.show()
+    //totalAmountDF.show()
 
     /* total rides amount
     +-----------------+
@@ -202,7 +207,7 @@ object RideSharingOpportunity {
 
     val totalProfitDF = groupingEstimateEconomicImpactDF.select(sum(col("totalImpact")).as("profit_amount"))
 
-    totalProfitDF.show()
+    // totalProfitDF.show()
 
     /* total profit amount  --> 40k/day = 12 million/year!!! we can save
     +-----------------+
