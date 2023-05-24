@@ -3,6 +3,8 @@ package analysis
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions._
 
+// 3 How are the trips distribution by length ? Why are people taking the cab ?
+
 object TripDistribution {
 
   def apply(taxiDF: DataFrame, taxiZonesDF: DataFrame) = {
@@ -35,7 +37,6 @@ object TripDistribution {
      */
 
     val tripsWithLengthDF = taxiDF.withColumn("isLong", col("trip_distance") >= longDistanceThreshold)
-
     val tripsByLengthDF = tripsWithLengthDF.groupBy("isLong").count()
 
     tripsByLengthDF.show()

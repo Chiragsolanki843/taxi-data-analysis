@@ -1,4 +1,4 @@
-import analysis.{MostPickupsDropOffs, PeakHoursForTaxi, TripDistribution}
+import analysis.{MostPickupsDropOffs, PeakHoursForLongShortTrips, PeakHoursForTaxi, TopPickUpAndDropOffForLongShortTrips, TripDistribution}
 import org.apache.spark.sql.SparkSession
 
 object TaxiApplication extends App {
@@ -106,8 +106,12 @@ object TaxiApplication extends App {
   //PeakHoursForTaxi(taxiDF, taxiZonesDF)
 
   // 3
-  TripDistribution(taxiDF, taxiZonesDF)
+  //TripDistribution(taxiDF, taxiZonesDF)
 
+  // 4
+  //PeakHoursForLongShortTrips(taxiDF,taxiZonesDF)
 
+  // 5
+  TopPickUpAndDropOffForLongShortTrips(taxiDF, taxiZonesDF)
 
 }
