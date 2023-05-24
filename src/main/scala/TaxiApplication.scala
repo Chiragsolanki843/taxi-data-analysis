@@ -1,9 +1,9 @@
-import analysis.{MostPickupsDropOffs, PeakHoursForLongShortTrips, PeakHoursForTaxi, TopPickUpAndDropOffForLongShortTrips, TripDistribution}
+import analysis.{MostPickupsDropOffs, PaymentTypeEvolvingWithTime, PeakHoursForLongShortTrips, PeakHoursForTaxi, PeoplePayingForLongShortTrips, RideSharingOpportunity, TopPickUpAndDropOffForLongShortTrips, TripDistribution}
 import org.apache.spark.sql.SparkSession
 
 object TaxiApplication extends App {
 
-  val spark = SparkSession.builder()
+  implicit val spark: SparkSession = SparkSession.builder()
     .appName("Taxi Application")
     .master("local[*]")
     .getOrCreate()
@@ -78,7 +78,7 @@ object TaxiApplication extends App {
     // RateCodeId = 1(standard), +2(JFK), 3(Newark), 4 (Nassau/Westchester) or 5 (negotiated)
     // PULocationID = pickup location zone ID
     // DOLocationID = dropoff location zone ID
-    // payment_type = 1 (credit card), 2 (cash), 3 (no charge), 4 (dispute), 5 (unknown), 6 (voided)
+    // payment_type = 1 (credit card), 2 (cash), 3 (no charge), 4 (dispute), 5 (unknown), 6 (voided), 99=???
     // total_amount
     */
 
@@ -112,6 +112,15 @@ object TaxiApplication extends App {
   //PeakHoursForLongShortTrips(taxiDF,taxiZonesDF)
 
   // 5
-  TopPickUpAndDropOffForLongShortTrips(taxiDF, taxiZonesDF)
+  //TopPickUpAndDropOffForLongShortTrips(taxiDF, taxiZonesDF)
+
+  // 6
+  //PeoplePayingForLongShortTrips(taxiDF, taxiZonesDF)
+
+  // 7
+  //PaymentTypeEvolvingWithTime(taxiDF, taxiZonesDF)
+
+  // 8
+  //RideSharingOpportunity(taxiDF, taxiZonesDF)
 
 }
